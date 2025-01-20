@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from time import sleep
 from ui_data.search_ui import SearchUI
+from ui_data.cart_ui import CartUI
 import allure
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -18,7 +19,7 @@ def driver():
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по автору. POSITIVE")
 @allure.suite("UI тесты")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @allure.description("Проверка проводится на наличие элемента 'Товары'. Если данного элемента нет - поиск неудачный.")
 def test_search_by_author(driver):
     search_ui = SearchUI(driver)
@@ -33,7 +34,7 @@ def test_search_by_author(driver):
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по названию. POSITIVE")
 @allure.suite("UI тесты")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @allure.description("Проверка проводится на наличие элемента 'Товары'. Если данного элемента нет - поиск неудачный.")
 def test_search_by_title(driver):
     search_ui = SearchUI(driver)
@@ -48,7 +49,7 @@ def test_search_by_title(driver):
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по жанру. POSITIVE")
 @allure.suite("UI тесты")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @allure.description("Проверка проводится на наличие элемента 'Товары'. Если данного элемента нет - поиск неудачный.")
 def test_search_by_genre(driver):
     search_ui = SearchUI(driver)
@@ -63,7 +64,7 @@ def test_search_by_genre(driver):
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по автору. NEGATIVE")
 @allure.suite("UI тесты")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @allure.description("Проверка поиска по автору которого нет.")
 def test_search_by_author_negative(driver):
     search_ui = SearchUI(driver)
@@ -79,9 +80,9 @@ def test_search_by_author_negative(driver):
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по названию. NEGATIVE")
 @allure.suite("UI тесты")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @allure.description("Проверка поиска по названию в котором присутствуют спецсимволы.")
-def test_search_by_title_negative(driver):
+def test_search_by_title_symb_negative(driver):
     search_ui = SearchUI(driver)
     with allure.step("Поиск книг c отправкой названия в котором есть спецсимволы."):
         search_ui.search_by_title('!!"№Война и мир')
@@ -95,9 +96,9 @@ def test_search_by_title_negative(driver):
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по названию. NEGATIVE")
 @allure.suite("UI тесты")
-@allure.severity(allure.severity_level.CRITICAL)
+@allure.severity(allure.severity_level.BLOCKER)
 @allure.description("Проверка поиска по названию которое в верхнем регистре.")
-def test_search_by_title_negative(driver):
+def test_search_by_title_upper_negative(driver):
     search_ui = SearchUI(driver)
     with allure.step("Поиск книг c отправкой названия в верхнем регистре."):
         search_ui.search_by_title('!!"№Война и мир')
@@ -107,3 +108,13 @@ def test_search_by_title_negative(driver):
         )
         result_text = result_find.text
         assert result_text == "Товары"
+
+@allure.feature("Корзина")
+@allure.title("Тест добавления книги в корзину.")
+@allure.suite("UI тесты")
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.description("Проверка добавления книги в корзину.")
+def test_add_to_cart(driver):
+    add_cart = CartUI(driver)
+    add_cart.add_to_cart('Persona')
+    sleep(5)
