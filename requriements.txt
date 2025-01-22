@@ -1,4 +1,4 @@
-selenuim==4.27.1
+selenium==4.27.1
 requests==2.32.3
 pytest==8.3.3
 allure-pytest==2.13.5

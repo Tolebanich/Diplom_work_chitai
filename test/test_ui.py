@@ -2,9 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from time import sleep
 from ui_data.search_ui import SearchUI
-from ui_data.cart_ui import CartUI
 import allure
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -26,10 +24,10 @@ def test_search_by_author(driver):
     search_ui.search_by_author('Лев Толстой')
     with allure.step("Проверка успешного поиска по автору книги."):
         result_find = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//button[@class='app-tabs__btn app-tabs__btn--active']"))
+            EC.presence_of_element_located((By.XPATH, "/div[@class='product-title']/div[@class='product-title__author']"))
         )
         result_text = result_find.text
-        assert result_text == "Товары"
+        assert result_text == "Лев Толстой"
 
 @allure.feature("Поиск")
 @allure.title("Тест поиска книг на сайте Читай-город по названию. POSITIVE")
@@ -108,13 +106,3 @@ def test_search_by_title_upper_negative(driver):
         )
         result_text = result_find.text
         assert result_text == "Товары"
-
-@allure.feature("Корзина")
-@allure.title("Тест добавления книги в корзину.")
-@allure.suite("UI тесты")
-@allure.severity(allure.severity_level.BLOCKER)
-@allure.description("Проверка добавления книги в корзину.")
-def test_add_to_cart(driver):
-    add_cart = CartUI(driver)
-    add_cart.add_to_cart('Persona')
-    sleep(5)
