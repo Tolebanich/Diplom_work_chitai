@@ -1,5 +1,4 @@
 import pytest
-from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from ui_data.search_ui import SearchUI
@@ -8,12 +7,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.fixture
-def driver():
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get('https://www.chitai-gorod.ru')
-    yield driver
-    driver.quit()
+def driver(browser, ui_url):
+    browser.get(ui_url)
+    yield browser
 
 
 @allure.feature("Поиск")

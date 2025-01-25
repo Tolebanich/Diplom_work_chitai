@@ -1,6 +1,6 @@
 import requests
 
-token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3VzZXItcmlnaHQiLCJzdWIiOjIxNjExMTM3LCJpYXQiOjE3Mzc2OTY1ODYsImV4cCI6MTczNzcwMDE4NiwidHlwZSI6MjB9.ZbAMtO8Pq5hE6IoZzpfLyIgdq5RDqyQ78JO6GRRdk3M'
+token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3VzZXItcmlnaHQiLCJzdWIiOjIxNjExMTM3LCJpYXQiOjE3Mzc3OTkzNDMsImV4cCI6MTczNzgwMjk0MywidHlwZSI6MjB9.MNlLKCZp5QsWatbzD3zVG0ID89ALQd_-X_5DtZGpbEg'
 
 
 class CartApi:
@@ -23,9 +23,9 @@ class CartApi:
             'Content-Type': 'application/json',
             "Authorization": token
         }
-        my_json = {
+        my_json = [{
             "id": book_id, "quantity": quantity
-        }
+        }]
         response = requests.put(self.url, json=my_json, headers=headers)
         return response
 
